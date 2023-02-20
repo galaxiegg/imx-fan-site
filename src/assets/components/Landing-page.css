@@ -1,0 +1,38 @@
+.imx-logo {
+    height: 5em;
+    padding: 1.5em;
+  }
+  
+.imx-logo:hover {
+  filter: drop-shadow(0 0 2em #36E0F8);
+}
+  
+.imx-logo.react:hover {
+  filter: drop-shadow(0 0 2em #1F8290);
+}
+
+.landing-page-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  margin: auto;
+}
+
+.imx-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+ }
+
+.game-logo {
+  width: 50px;
+  height: 50px;
+  padding: 5px;
+}
+
+.imx-game-logo > p {
+  padding: 0;
+  margin: 0;
+}

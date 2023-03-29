@@ -3,9 +3,10 @@ import { Disclosure, Menu, Transition } from "@headlessui/react";
 import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { DefaultImages } from "../../utils/default-images";
 import { Button } from "./button";
+import {Link} from "react-router-dom";
 
 const navigation = [
-  { name: "Home", href: "#", current: true },
+  { name: "Home", href: "/", current: true },
   { name: "About IMX", href: "#", current: false },
   { name: "Discover", href: "#", current: false },
   { name: "News & Events", href: "#", current: false },
@@ -40,18 +41,20 @@ export default function Navbar() {
                 </Disclosure.Button>
               </div>
               <div className="flex items-center justify-between w-full">
-                <div className="flex flex-shrink-0 items-center px-4">
-                  <img
-                    className="block h-20 w-auto lg:hidden"
-                    src={DefaultImages.GALAXIE_FULL_LOGO}
-                    alt="Galaxie"
-                  />
-                  <img
-                    className="hidden h-20 w-auto lg:block"
-                    src={DefaultImages.GALAXIE_FULL_LOGO}
-                    alt="Galaxie"
-                  />
-                </div>
+                <Link to={"/"}>
+                  <div className="flex flex-shrink-0 items-center px-4">
+                    <img
+                      className="block h-20 w-auto lg:hidden"
+                      src={DefaultImages.GALAXIE_FULL_LOGO}
+                      alt="Galaxie"
+                    />
+                    <img
+                      className="hidden h-20 w-auto lg:block"
+                      src={DefaultImages.GALAXIE_FULL_LOGO}
+                      alt="Galaxie"
+                    />
+                  </div>
+                </Link>
                 <div className="hidden sm:ml-6 sm:block">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (

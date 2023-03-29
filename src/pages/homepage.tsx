@@ -1,29 +1,36 @@
 import React from "react";
-import Footer from "../components/common/footer";
-import Navbar from "../components/common/navbar";
-import DiscoverGames from "../components/landing-components/discover-games";
+import axios, { AxiosResponse } from "axios";
+import DiscoverProjects from "../components/landing-components/discover-projects";
 import HeroSection from "../components/landing-components/hero-section";
 import LatestNews from "../components/landing-components/lastest-news";
-import { DefaultImages } from "../utils/default-images";
+import Layout from "../components/common/layouts/layout";
+import { Projects } from "../infrastructure/backend/projects";
 
 export const HomePage = () => {
+  const [projects, setProjects] = React.useState<Projects[]>([]);
+
+  const fetchProjects = async () => {
+    const response: AxiosResponse = await axios.get(
+      import.meta.env.VITE_BACKEND_BASE_URL + "projects/"
+    );
+    setProjects(response.data);
+  };
+
+  React.useEffect(() => {
+    fetchProjects();
+  }, []);
+
   return (
-    <div className="bg-primary text-white relative">
-      <Navbar />
-      <img
-        src={DefaultImages.LANDING_PAGE_GALAXIE_LEFT}
-        alt="alien queen"
-        className="absolute -left-[24px] top-0"
-      />
+    <Layout>
       <HeroSection />
-      <DiscoverGames />
-      <LatestNews />
-      <Footer />
-      <img
-        src={DefaultImages.LANDING_PAGE_GALAXIE_RIGHT}
-        alt="galaxie"
-        className="absolute right-0 bottom-0"
+      <DiscoverProjects
+        title="Blockchain"
+        linksTo="/blockchains"
+        data={projects}
       />
-    </div>
+      {/*<DiscoverGames title="Games" linksTo="/games" />*/}
+      {/*<DiscoverGames title="DApps" linksTo="/dapps" />*/}
+      <LatestNews />
+    </Layout>
   );
 };

@@ -1,0 +1,22 @@
+export interface Projects {
+  id: number,
+  name: string,
+  logo: string,
+  banner: string,
+  description: string,
+  blockchains: [],
+  blockchain_strategy: string
+  type: string,
+  date_formed: string,
+  date_added: string,
+  status: string,
+  website: string,
+  twitter: string,
+  discord: string,
+  youtube: string,
+  youtube_embedded: string,
+  galaxie_rating: string,
+  project_screenshots: string,
+  project_tokens: string,
+  game_project: string,
+}

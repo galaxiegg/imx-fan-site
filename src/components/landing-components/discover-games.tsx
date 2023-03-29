@@ -1,7 +1,6 @@
 import React from "react";
 import ProjectCard from "../common/cards/project-card";
 import axios, {AxiosResponse} from "axios";
-import Configuration from "../../config/configuration";
 import {Projects} from "../../infrastructure/backend/projects";
 
 const DiscoverGames = () => {
@@ -9,7 +8,7 @@ const DiscoverGames = () => {
 
   React.useEffect(() => {
     axios.get(
-      Configuration().backendBaseUrl + "projects/"
+      import.meta.env.VITE_BACKEND_BASE_URL + "projects/"
       ).then((response: AxiosResponse<Projects[]>) => {
       setProjects(response.data);
     });

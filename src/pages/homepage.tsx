@@ -5,14 +5,13 @@ import HeroSection from "../components/landing-components/hero-section";
 import LatestNews from "../components/landing-components/lastest-news";
 import Layout from "../components/common/layouts/layout";
 import { Projects } from "../infrastructure/backend/projects";
+import {BackendPaths} from "../router/backend-paths";
 
 export const HomePage = () => {
   const [projects, setProjects] = React.useState<Projects[]>([]);
 
   const fetchProjects = async () => {
-    const response: AxiosResponse = await axios.get(
-      import.meta.env.VITE_BACKEND_BASE_URL + "projects/"
-    );
+    const response: AxiosResponse = await axios.get(BackendPaths.toProjects());
     setProjects(response.data);
   };
 

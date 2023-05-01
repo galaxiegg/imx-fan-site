@@ -16,7 +16,7 @@ const ProgressDots = (props: ProgressDotsProps) => {
     for (let i = 0; i < props.total; i++) {
       const isCurrentDot: boolean = i + 1 === props.current;
       dots.push(
-        <div
+        <div key={`dot-${i}`}
           className={` cursor-pointer w-2 h-2  rounded-full ${
             isCurrentDot ? "bg-secondary" : "bg-[#0AD8FF66]"
           }`}

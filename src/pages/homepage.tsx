@@ -6,6 +6,7 @@ import LatestNews from "../components/landing-components/lastest-news";
 import Layout from "../components/common/layouts/layout";
 import { Projects } from "../infrastructure/backend/projects";
 import {BackendPaths} from "../router/backend-paths";
+import {Paths} from "../router/paths";
 
 export const HomePage = () => {
   const [projects, setProjects] = React.useState<Projects[]>([]);
@@ -24,7 +25,7 @@ export const HomePage = () => {
       <HeroSection />
       <DiscoverProjects
         title="Blockchain"
-        linksTo="/blockchains"
+        linksTo={Paths.toBlockchains()}
         data={projects}
       />
       {/*<DiscoverGames title="Games" linksTo="/games" />*/}

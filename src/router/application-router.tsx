@@ -9,22 +9,23 @@ import { HomePage } from "../pages/homepage";
 import BlockchainsPage from "../pages/blockchains-page";
 import GamesPage from "../pages/games-page";
 import DAppsPage from "../pages/dapps-page";
+import {Paths} from "./paths";
 
 const router: RouteObject[] = [
   {
-    path: "/",
+    path: Paths.toHome(),
     element: <HomePage />,
   },
   {
-    path: "/blockchains",
+    path: Paths.toBlockchains(),
     element: <BlockchainsPage />,
   },
   {
-    path: "/games",
+    path: Paths.toGames(),
     element: <GamesPage />,
   },
   {
-    path: "/dapps",
+    path: Paths.toDapps(),
     element: <DAppsPage />,
   },
 ];

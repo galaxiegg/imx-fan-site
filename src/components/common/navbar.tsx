@@ -1,12 +1,15 @@
 import {Fragment, useEffect, useState} from "react";
 import { Disclosure, Menu, Transition, Dialog } from "@headlessui/react";
-import { Bars3Icon, BellIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { DefaultImages } from "../../utils/default-images";
 import { Button } from "./button";
 import {Link, useNavigate} from "react-router-dom";
 import {Login} from "../auth/login";
 import axios from "axios";
 import {BackendPaths} from "../../router/backend-paths";
+import {Avatar} from "./avatar";
+import {User} from "../../infrastructure/backend/user";
+import {Paths} from "../../router/paths";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
@@ -20,15 +23,24 @@ function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function Navbar() {
+interface NavbarProps {
+  user?: User
+}
+
+interface UserNavItem {
+  name: string,
+  onClick: () => void;
+}
+
+export default function Navbar(props: NavbarProps) {
   let [loginOpen, setLoginOpen] = useState(false)
-  const [user, setUser] = useState<any>({});
+  const [user, setUser] = useState<User>();
   let navigate = useNavigate();
 
   useEffect(() => {
     (
       async () => {
-        let user: any | undefined
+        let user: User | undefined
         try {
           const {data} = await axios.get(BackendPaths.toUser())
           setUser(data);
@@ -48,10 +60,58 @@ export default function Navbar() {
     setLoginOpen(false);
   };
 
+  const userNavigation: UserNavItem[] = [
+    { name: "Account", onClick: () => navigate(Paths.toUserAccount()) },
+    { name: "Logout", onClick: logout},
+  ];
+
   const loginButton = (styling?: string) => (
-    <Button outlined className={styling} onClick={() => user ? logout() : setLoginOpen(true)}>
-      {user ? "Logout" : "Login"}
-    </Button>
+    <>
+      {user &&
+        <div className={styling}>
+          <Menu as="div" className={"relative inline-block text-left"}>
+              <div>
+                  <Menu.Button className="inline-flex w-full justify-center rounded-md px-4 py-2 text-sm font-medium text-white hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                      <Avatar name={user.username} email={user.email} avatar={user.username.charAt(0).toUpperCase()}/>
+                  </Menu.Button>
+              </div>
+              <Transition
+                  as={Fragment}
+                  enter="transition ease-out duration-100"
+                  enterFrom="transform opacity-0 scale-95"
+                  enterTo="transform opacity-100 scale-100"
+                  leave="transition ease-in duration-75"
+                  leaveFrom="transform opacity-100 scale-100"
+                  leaveTo="transform opacity-0 scale-95"
+              >
+                  <Menu.Items className="origin-bottom-left absolute right-0 mt-2 w-56 divide-y divide-gray-100 rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    {userNavigation.map((item: UserNavItem, index: number) =>
+                      <div key={`menu-item-${index}`}className="px-1 py-1">
+                          <Menu.Item>
+                            {({ active }) => (
+                              <button
+                                className={`${
+                                  active ? 'bg-violet-500 text-white' : 'text-gray-900'
+                                } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                                onClick={item.onClick}
+                              >
+                                {item.name}
+                              </button>
+                            )}
+                          </Menu.Item>
+                      </div>
+                    )}
+                  </Menu.Items>
+              </Transition>
+          </Menu>
+        </div>
+      }
+      {!user &&
+        <Button outlined className={classNames(styling ? styling : "", "py-3 px-10")} onClick={() => setLoginOpen(true)}>
+          Login
+        </Button>
+      }
+    </>
   );
 
   return (
@@ -163,7 +223,27 @@ export default function Navbar() {
                   {item.name}
                 </Disclosure.Button>
               ))}
-              {loginButton()}
+              <div className="border-t border-gray-200 my-3"></div>
+                {!user ?
+                  <Disclosure.Button
+                    as="a"
+                    onClick={() => setLoginOpen(true)}
+                    className={"text-gray-100 hover:cursor-pointer block rounded-md px-3 py-2 text-base font-medium"}
+                  >
+                    Login
+                  </Disclosure.Button>
+                  :
+                  userNavigation.map((item: UserNavItem, index: number) =>
+                    <Disclosure.Button
+                      key={`mobile-menu-item-${index}`}
+                      as="a"
+                      onClick={item.onClick}
+                      className={"text-gray-100 hover:cursor-pointer block rounded-md px-3 py-2 text-base font-medium"}
+                    >
+                      {item.name}
+                    </Disclosure.Button>
+                  )
+                }
             </div>
           </Disclosure.Panel>
         </>

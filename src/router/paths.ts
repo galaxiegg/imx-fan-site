@@ -14,4 +14,8 @@ export class Paths {
   public static toDapps(): string {
     return '/dapps';
   }
+
+  public static toUserAccount(): string {
+    return '/user/account';
+  }
 }

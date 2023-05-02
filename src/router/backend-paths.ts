@@ -18,4 +18,12 @@ export class BackendPaths {
   public static toProjects(): string {
     return import.meta.env.VITE_BACKEND_BASE_URL + "projects/";
   }
+
+  public static toFollowedProjects() : string {
+    return import.meta.env.VITE_BACKEND_BASE_URL + "auth/followed-projects/";
+  }
+
+  public static toUnfollowProject() : string {
+    return import.meta.env.VITE_BACKEND_BASE_URL + "auth/unfollow-project/";
+  }
 }

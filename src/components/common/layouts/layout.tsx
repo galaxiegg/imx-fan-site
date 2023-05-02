@@ -16,7 +16,7 @@ const Layout = (props: LayoutProps) => {
         alt="alien queen"
         className="absolute -left-[24px] top-0"
       />
-      <div className={"min-h-[43vh]"}>
+      <div className={"min-h-[43vh] relative"}>
         {props.children}
       </div>
       <Footer/>

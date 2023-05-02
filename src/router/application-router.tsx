@@ -10,7 +10,8 @@ import BlockchainsPage from "../pages/blockchains-page";
 import GamesPage from "../pages/games-page";
 import DAppsPage from "../pages/dapps-page";
 import {Paths} from "./paths";
-import UserAccount from "../pages/user-account";
+import {UserAccount} from "../pages/user/user-account";
+import {UserAccountEdit} from "../pages/user/user-account-edit";
 
 const router: RouteObject[] = [
   {
@@ -32,6 +33,10 @@ const router: RouteObject[] = [
   {
     path: Paths.toUserAccount(),
     element: <UserAccount/>
+  },
+  {
+    path: Paths.toUserAccountEdit(),
+    element: <UserAccountEdit/>
   }
 ];
 

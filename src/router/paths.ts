@@ -18,4 +18,8 @@ export class Paths {
   public static toUserAccount(): string {
     return '/user/account';
   }
+
+  public static toUserAccountEdit(): string {
+    return '/user/account/edit';
+  }
 }

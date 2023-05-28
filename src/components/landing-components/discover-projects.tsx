@@ -24,20 +24,19 @@ const DiscoverProjects = (props: DiscoverGamesProps) => {
       </p>
       <div className="flex flex-row gap-8 my-8 md:my-16 overflow-hidden">
         <Carousel show={4} showProgressDots totalCards={data.length}>
-          {data.map((datum: any, index: number) => {
+          {data.map((datum: Projects, index: number) => {
             return (
               <CarouselItem key={`project-${index}`}>
                 <ProjectCard
                   key={"project" + index}
-                  logo={
-                    "https://res.cloudinary.com/dvqgzhqsi/image/upload/v1679795964/image_2_ciyowz.png"
-                  }
+                  logo={datum.logo
+              }
                   image={
                     "https://res.cloudinary.com/dvqgzhqsi/image/upload/v1679736720/galaxie-projects/angelic-logo-400x400_erryyy.jpg"
                   }
                   projectLink={"#"}
                   name={datum.name}
-                  genre={datum.genre}
+                  genre={datum.game_project}
                 />
               </CarouselItem>
             );

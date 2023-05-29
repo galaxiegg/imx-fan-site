@@ -23,14 +23,13 @@ const DiscoverProjects = (props: DiscoverGamesProps) => {
         The future of web3 gaming is powered by Immutable
       </p>
       <div className="flex flex-row gap-8 my-8 md:my-16 overflow-hidden">
-        <Carousel show={4} showProgressDots totalCards={data.length} showLeftRightIndicator={true}>
+        <Carousel show={4} showProgressDots totalCards={data.length} showLeftRightIndicator>
           {data.map((datum: Projects, index: number) => {
             return (
               <CarouselItem key={`project-${index}`}>
                 <ProjectCard
                   key={"project" + index}
-                  logo={datum.logo
-              }
+                  logo={datum.logo}
                   image={
                     "https://res.cloudinary.com/dvqgzhqsi/image/upload/v1679736720/galaxie-projects/angelic-logo-400x400_erryyy.jpg"
                   }

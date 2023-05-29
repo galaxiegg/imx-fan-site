@@ -1,5 +1,7 @@
 import React from "react";
 import ProgressDots from "./progress-dot";
+import {Icons} from "../icons";
+import {ChevronRightIcon} from "@heroicons/react/24/outline";
 
 interface CarouselProps {
   children: React.ReactNode;
@@ -35,6 +37,7 @@ const Carousel = (props: CarouselProps) => {
     } else if (activeIndex < length - props.show) {
       setActiveIndex((prevState: number) => prevState + 1);
     }
+    setCurrentDotPosition(activeIndex);
   };
 
   const previousItem = () => {
@@ -43,6 +46,7 @@ const Carousel = (props: CarouselProps) => {
     } else {
       setActiveIndex(length - props.show);
     }
+
   };
 
   const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
@@ -69,12 +73,12 @@ const Carousel = (props: CarouselProps) => {
 
   return (
     <div
-      className={`w-full overflow-hidden`}
+      className={`w-full overflow-hidden relative`}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
     >
       <div
-        className={` whitespace-nowrap`}
+        className={`whitespace-nowrap`}
         style={{
           transition: "transform 0.3s",
           transform: `translateX(-${activeIndex * (100 / props.show)}%)`,
@@ -94,19 +98,20 @@ const Carousel = (props: CarouselProps) => {
         )}
       </div>
       {props.showLeftRightIndicator && (
-        <div className={`carousel-indicators`}>
-          <div className={"indicator-left"} onClick={previousItem}>
-            Prev
+        <div className={`carousel-indicators absolute z-40 right-0 top-[12.5rem] flex items-center justify-between w-full`}>
+          <div className={"indicator-left cursor-pointer bg-white rounded-full h-8 w-8 flex items-center justify-center"} onClick={previousItem}>
+            <Icons.ChevronLeftIcon className={"h-6 w-6 text-neutral-600"}/>
           </div>
-          <div className={"indicator-right"} onClick={nextItem}>
-            Next
+          <div className={"indicator-left cursor-pointer bg-white rounded-full h-8 w-8 flex items-center justify-center"} onClick={nextItem}>
+            <Icons.ChevronRightIcon className={"h-6 w-6 text-neutral-600"}/>
           </div>
         </div>
+
       )}
       {props.showProgressDots && props.totalCards && (
         <ProgressDots
           current={currentDotPosition}
-          total={props.totalCards}
+          total={props.totalCards - 5}
           onDotClick={handleDotsClick}
         />
       )}

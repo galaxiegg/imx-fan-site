@@ -8,8 +8,8 @@ interface CarouselItemProps {
 export const CarouselItem = (props: CarouselItemProps) => {
   return (
     <div
-      className={"inline-flex items-center justify-center gap-4"}
-      style={{ width: props.width }}
+      className={"inline-flex items-center justify-center gap-12"}
+
     >
       {props.children}
     </div>

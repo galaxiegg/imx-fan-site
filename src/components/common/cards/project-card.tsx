@@ -11,11 +11,11 @@ interface ProjectCardProps {
 
 const ProjectCard = (props: ProjectCardProps) => {
   return (
-    <div className="project-card w-72 min-w-[15rem]">
+    <div className="project-card md:w-72 min-w-[15rem] mx-2">
       <img
         src={props.logo}
         alt={props.name}
-        className="min-h-96 w-full object-cover rounded-2xl"
+        className="w-full h-64 md:h-80 object-cover rounded-2xl"
       />
       <div className="px-4 py-6 flex flex-col items-center gap-2">
         <p>{props.name}</p>

@@ -23,7 +23,7 @@ const DiscoverProjects = (props: DiscoverGamesProps) => {
         The future of web3 gaming is powered by Immutable
       </p>
       <div className="flex flex-row gap-8 my-8 md:my-16 overflow-hidden">
-        <Carousel show={4} showProgressDots totalCards={data.length}>
+        <Carousel show={4} showProgressDots totalCards={data.length} showLeftRightIndicator={true}>
           {data.map((datum: Projects, index: number) => {
             return (
               <CarouselItem key={`project-${index}`}>

@@ -12,11 +12,16 @@ import DAppsPage from "../pages/dapps-page";
 import {Paths} from "./paths";
 import {UserAccount} from "../pages/user/user-account";
 import {UserAccountEdit} from "../pages/user/user-account-edit";
+import {LoginPage} from "../pages/login-page";
 
 const router: RouteObject[] = [
   {
     path: Paths.toHome(),
     element: <HomePage />,
+  },
+  {
+    path: Paths.toLogin(),
+    element: <LoginPage />,
   },
   {
     path: Paths.toBlockchains(),

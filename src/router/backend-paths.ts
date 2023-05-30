@@ -23,6 +23,10 @@ export class BackendPaths {
     return import.meta.env.VITE_BACKEND_BASE_URL + "auth/followed-projects/";
   }
 
+  public static toFollowProject() : string {
+    return import.meta.env.VITE_BACKEND_BASE_URL + "auth/follow-project/";
+  }
+
   public static toUnfollowProject() : string {
     return import.meta.env.VITE_BACKEND_BASE_URL + "auth/unfollow-project/";
   }

@@ -1,11 +1,13 @@
 import React from "react";
-import { HomePage } from "./pages/homepage";
 import ApplicationRouter from "./router/application-router";
+import {FollowedProjectsProvider} from "./components/providers/followed-projects-provider";
 
 function App() {
   return (
     <React.Fragment>
-      <ApplicationRouter />
+      <FollowedProjectsProvider>
+        <ApplicationRouter />
+      </FollowedProjectsProvider>
     </React.Fragment>
   );
 }

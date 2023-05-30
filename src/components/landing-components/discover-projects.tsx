@@ -29,6 +29,7 @@ const DiscoverProjects = (props: DiscoverGamesProps) => {
               <CarouselItem key={`project-${index}`}>
                 <ProjectCard
                   key={"project" + index}
+                  projectId={datum.id}
                   logo={datum.logo}
                   image={
                     "https://res.cloudinary.com/dvqgzhqsi/image/upload/v1679736720/galaxie-projects/angelic-logo-400x400_erryyy.jpg"

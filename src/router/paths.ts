@@ -3,6 +3,10 @@ export class Paths {
     return '/';
   }
 
+  public static toLogin(): string {
+    return '/login';
+  }
+
   public static toBlockchains(): string {
     return '/blockchains';
   }

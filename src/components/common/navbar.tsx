@@ -3,7 +3,7 @@ import { Disclosure, Menu, Transition, Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { DefaultImages } from "../../utils/default-images";
 import { Button } from "./button";
-import {Link, useNavigate} from "react-router-dom";
+import {Link, useLocation, useNavigate} from "react-router-dom";
 import {Login} from "../auth/login";
 import axios from "axios";
 import {BackendPaths} from "../../router/backend-paths";
@@ -33,7 +33,11 @@ interface UserNavItem {
 }
 
 export default function Navbar(props: NavbarProps) {
-  let [loginOpen, setLoginOpen] = useState(false)
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const login = queryParams.get('login');
+
+  let [loginOpen, setLoginOpen] = useState(login ? true : false)
   const [user, setUser] = useState<User>();
   let navigate = useNavigate();
 

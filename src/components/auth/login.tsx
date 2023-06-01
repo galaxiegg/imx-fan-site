@@ -9,7 +9,8 @@ import * as Yup from "yup";
 
 export interface LoginProps {
   openRegister?: boolean,
-  onClose: () => void,
+  onClose?: () => void,
+  redirectOnLogin?: string,
 }
 
 interface FormValues {
@@ -42,7 +43,7 @@ export function Login(props: LoginProps) {
             password: values.password
           },
           config);
-        navigate(0);
+        props.redirectOnLogin ? navigate(props.redirectOnLogin) : navigate(0);
       } catch (error: any) {
         if (error.response.status === 400) {
           setErrors({
@@ -64,7 +65,7 @@ export function Login(props: LoginProps) {
             password2: values.password_confirm
           },
           config);
-        navigate(0);
+        props.redirectOnLogin ? navigate(props.redirectOnLogin) : navigate(0);
       } catch (error: any) {
         if (error.response.status === 400) {
           setErrors({
@@ -177,6 +178,7 @@ export function Login(props: LoginProps) {
                   {toggle === REGISTER_TOGGLED ? "Register" : "Sign In"}
                 </button>
               </div>
+              {props.onClose &&
               <div className="md:w-2/3">
                 <button
                   className="shadow bg-purple-500 hover:bg-purple-400 focus:shadow-outline focus:outline-none text-white font-bold py-2 px-4 rounded"
@@ -185,6 +187,7 @@ export function Login(props: LoginProps) {
                   Cancel
                 </button>
               </div>
+              }
             </div>
           </Form>
         )}

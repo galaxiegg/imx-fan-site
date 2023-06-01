@@ -24,6 +24,7 @@ const ProjectCard = (props: ProjectCardProps) => {
       following ? await unfollow(id) : await follow(id)
     } catch (e) {
       navigate(Paths.toLogin())
+      window.scrollTo(0, 0);
     }
   }
 

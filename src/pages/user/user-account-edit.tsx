@@ -8,6 +8,7 @@ import {User} from "../../infrastructure/backend/user";
 import Layout from "../../components/common/layouts/layout";
 import {Input} from "../../components/form/input";
 import {Paths} from "../../router/paths";
+import {LoggedInUserOnly} from "../../components/auth/logged-in-user-only";
 
 interface FormValues {
   first_name: string,
@@ -51,44 +52,46 @@ export function UserAccountEdit() {
 
   return (
     <Layout>
-      <div className="px-10 py-8">
-        <Formik
-          initialValues={initialValues}
-          validationSchema={validationSchema}
-          onSubmit={handleSubmit}
-          enableReinitialize
-        >
-          {(formik: FormikProps<FormValues>) => (
-            <Form>
-              <div className="grid grid-cols-2 gap-4">
-                <div>
-                  <Input
-                    id="first_name"
-                    type="text"
-                    label="First Name"/>
+      <LoggedInUserOnly>
+        <div className="px-10 py-8">
+          <Formik
+            initialValues={initialValues}
+            validationSchema={validationSchema}
+            onSubmit={handleSubmit}
+            enableReinitialize
+          >
+            {(formik: FormikProps<FormValues>) => (
+              <Form>
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Input
+                      id="first_name"
+                      type="text"
+                      label="First Name"/>
+                  </div>
+                  <div>
+                    <Input
+                      id="last_name"
+                      type="text"
+                      label="Last Name"/>
+                  </div>
                 </div>
-                <div>
-                  <Input
-                    id="last_name"
-                    type="text"
-                    label="Last Name"/>
+                <div className="flex gap-4 items-end justify-start pt-4">
+                  <button type="submit" className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-purple-500 hover:bg-purple-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" disabled={formik.isSubmitting}>
+                    {formik.isSubmitting ? "Submitting..." : "Save Changes"}
+                  </button>
+                  <button
+                      type="button"
+                      className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-purple-500 hover:bg-purple-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                      onClick={() => navigate(Paths.toUserAccount())}>
+                    Cancel
+                  </button>
                 </div>
-              </div>
-              <div className="flex gap-4 items-end justify-start pt-4">
-                <button type="submit" className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-purple-500 hover:bg-purple-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" disabled={formik.isSubmitting}>
-                  {formik.isSubmitting ? "Submitting..." : "Save Changes"}
-                </button>
-                <button
-                    type="button"
-                    className="inline-flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-base font-medium text-white bg-purple-500 hover:bg-purple-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                    onClick={() => navigate(Paths.toUserAccount())}>
-                  Cancel
-                </button>
-              </div>
-            </Form>
-          )}
-        </Formik>
-      </div>
+              </Form>
+            )}
+          </Formik>
+        </div>
+      </LoggedInUserOnly>
     </Layout>
   );
 }

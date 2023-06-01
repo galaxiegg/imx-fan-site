@@ -1,10 +1,11 @@
 import {useNavigate} from "react-router-dom";
 import axios from "axios";
-import {useState} from "react";
+import {useContext, useState} from "react";
 import {BackendPaths} from "../../router/backend-paths";
 import {Formik, Field, Form, FormikHelpers} from 'formik';
 import {Input} from "../form/input";
 import * as Yup from "yup";
+import {LoggedInUserContext} from "../providers/logged-in-user-provider";
 
 
 export interface LoginProps {
@@ -26,6 +27,7 @@ export function Login(props: LoginProps) {
   const REGISTER_TOGGLED = true;
   const [toggle, setToggle] = useState<boolean>(LOGIN_TOGGLED);
   const toggleForm = () => setToggle((prevState: boolean) => !prevState);
+  const { login } = useContext(LoggedInUserContext);
 
   let navigate = useNavigate();
 
@@ -36,13 +38,7 @@ export function Login(props: LoginProps) {
     };
     if (toggle === LOGIN_TOGGLED) {
       try {
-        await axios.post(
-          BackendPaths.toLogin(),
-          {
-            email: values.email,
-            password: values.password
-          },
-          config);
+        await login(values.email, values.password);
         props.redirectOnLogin ? navigate(props.redirectOnLogin) : navigate(0);
       } catch (error: any) {
         if (error.response.status === 400) {

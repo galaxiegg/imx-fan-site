@@ -1,13 +1,14 @@
 import React from "react";
 import ApplicationRouter from "./router/application-router";
 import {FollowedProjectsProvider} from "./components/providers/followed-projects-provider";
+import GlobalProviders from "./components/providers/global-providers";
 
 function App() {
   return (
     <React.Fragment>
-      <FollowedProjectsProvider>
+      <GlobalProviders>
         <ApplicationRouter />
-      </FollowedProjectsProvider>
+      </GlobalProviders>
     </React.Fragment>
   );
 }

@@ -1,15 +1,14 @@
-import {Fragment, useEffect, useState} from "react";
+import {Fragment, useContext, useEffect, useState} from "react";
 import { Disclosure, Menu, Transition, Dialog } from "@headlessui/react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
 import { DefaultImages } from "../../utils/default-images";
 import { Button } from "./button";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {Login} from "../auth/login";
-import axios from "axios";
-import {BackendPaths} from "../../router/backend-paths";
 import {Avatar} from "./avatar";
 import {User} from "../../infrastructure/backend/user";
 import {Paths} from "../../router/paths";
+import {LoggedInUserContext} from "../providers/logged-in-user-provider";
 
 const navigation = [
   { name: "Home", href: "/", current: true },
@@ -36,27 +35,14 @@ export default function Navbar(props: NavbarProps) {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
   const login = queryParams.get('login');
-
+  const { loggedInUser, logout } = useContext(LoggedInUserContext);
   let [loginOpen, setLoginOpen] = useState(login ? true : false)
-  const [user, setUser] = useState<User>();
   let navigate = useNavigate();
 
-  useEffect(() => {
-    (
-      async () => {
-        let user: User | undefined
-        try {
-          const {data} = await axios.get(BackendPaths.toUser())
-          setUser(data);
-        } catch (e: any) {
-          setUser(undefined);
-        }
-      }
-    )()
-  }, [])
+  const user: User | undefined | null = loggedInUser();
 
-  const logout = async () => {
-    await axios.post(BackendPaths.toLogout());
+  const handleLogout = async () => {
+    await logout();
     navigate(0)
   }
 
@@ -66,7 +52,7 @@ export default function Navbar(props: NavbarProps) {
 
   const userNavigation: UserNavItem[] = [
     { name: "Account", onClick: () => navigate(Paths.toUserAccount()) },
-    { name: "Logout", onClick: logout},
+    { name: "Logout", onClick: handleLogout},
   ];
 
   const loginButton = (styling?: string) => (

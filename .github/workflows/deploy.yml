@@ -21,9 +21,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install ts-node
-        run: npm install -g ts-node
-
       - name: Run Build
         run: npm run build
 
@@ -36,5 +33,6 @@ jobs:
 
       - name: CDK Deploy
         run: |
-          cd infrastructure/cdk/bin
+          cd infrastructure/cdk
+          npm install -g aws-cdk
           npx cdk deploy --app 'npx ts-node cdk.ts' --require-approval never

@@ -33,5 +33,5 @@ jobs:
 
       - name: CDK Deploy
         run: |
-          cd infra/cdk/bin
+          cd infrastructure/cdk/bin
           npx cdk deploy --require-approval never

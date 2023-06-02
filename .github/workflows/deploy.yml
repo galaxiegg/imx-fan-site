@@ -34,4 +34,4 @@ jobs:
       - name: CDK Deploy
         run: |
           cd infrastructure/cdk/bin
-          npx cdk deploy --app Galaxie --require-approval never
+          npx cdk deploy --app 'npx ts-node cdk.ts' --require-approval never

@@ -13,6 +13,12 @@ export class Galaxie extends cdk.Stack {
     const bucket = new s3.Bucket(this, `${env}-galaxie-bucket`, {
       websiteIndexDocument: "index.html",
       publicReadAccess: true,
+      blockPublicAccess: new s3.BlockPublicAccess({
+        blockPublicAcls: false,
+        ignorePublicAcls: false,
+        blockPublicPolicy: false,
+        restrictPublicBuckets: false,
+      }),
     });
 
     const certificateArn =
@@ -22,8 +28,6 @@ export class Galaxie extends cdk.Stack {
       `${env}-galaxie-cert`,
       certificateArn
     );
-
-    let foo: cloudfront.Behavior;
 
     const distribution = new cloudfront.CloudFrontWebDistribution(
       this,

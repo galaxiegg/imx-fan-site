@@ -33,6 +33,7 @@ jobs:
 
       - name: CDK Deploy
         run: |
-          cd infrastructure/cdk/bin
+          cd deploy
+          npm install
           npm install -g aws-cdk
-          npx cdk deploy --app 'npx ts-node cdk.ts' --require-approval never
+          npx cdk deploy --require-approval never -e "prod-galaxie"

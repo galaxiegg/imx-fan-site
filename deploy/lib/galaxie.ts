@@ -23,6 +23,8 @@ export class Galaxie extends cdk.Stack {
       certificateArn
     );
 
+    let foo: cloudfront.Behavior;
+
     const distribution = new cloudfront.CloudFrontWebDistribution(
       this,
       `${env}-galaxie-distribution`,
@@ -32,13 +34,22 @@ export class Galaxie extends cdk.Stack {
             s3OriginSource: {
               s3BucketSource: bucket,
             },
-            behaviors: [{ isDefaultBehavior: true }],
+            behaviors: [
+              {
+                isDefaultBehavior: true,
+                defaultTtl: cdk.Duration.seconds(0),
+                maxTtl: cdk.Duration.seconds(0)
+              },
+            ],
           },
         ],
         viewerCertificate: cloudfront.ViewerCertificate.fromAcmCertificate(
           certificate,
           {
-            aliases: env === "prod" ? ["galaxie.gg", "www.galaxie.gg"] : ["staging.galaxie.gg"],
+            aliases:
+              env === "prod"
+                ? ["galaxie.gg", "www.galaxie.gg"]
+                : ["staging.galaxie.gg"],
           }
         ),
       }
